@@ -1,2 +1,4 @@
 ^catr\.Rproj$
 ^\.Rproj\.user$
+^\.travis\.yml$
+^\.github$
