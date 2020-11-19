@@ -2,18 +2,16 @@
 % Please edit documentation in R/cat_functions.R
 \name{create_ylt}
 \alias{create_ylt}
-\title{Create a Year loss table in tidy format}
+\title{TCreate a YLT from ELT}
 \usage{
-create_ylt(x, sims)
+create_ylt(dt, sims, ann_rate, event_id, expval, mu)
 }
 \arguments{
-\item{x}{a data.table of elt  with parameters}
-
-\item{sims}{number of years to simulate}
+\item{mu}{}
 }
 \value{
-YLT
+
 }
 \description{
-Create a Year loss table in tidy format
+TCreate a YLT from ELT
 }

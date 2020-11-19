@@ -1,3 +1,5 @@
+.datatable.aware= TRUE
+
 #' Limited event loss to the layer
 #'
 #' @param x event loss mean
@@ -13,74 +15,81 @@ layer_loss <- function(x, Excess, Limit){
 
 
 
-#' Create an Event Loss Table with parameters for simulation
+#' Create parameters for ELT simulation
 #'
-#' @param dt a data.table
+#' @param dt an ELT (Event Loss Table)
+#' @param ann_rate a vector of annual rates for each event
+#' @param mu a vector of mean event loss
+#' @param sdev_i a vector of independent standard deviations
+#' @param sdev_c a vector of correlated standard deviations
+#' @param expval the total values exposed in each event
 #'
-#' @return ELT
+#' @return a data.table object with mean damage ratio, total standard deviation and alpha/beta parameters
 #' @export
 
-create_elt <- function(dt) {
+create_elt <- function(dt, ann_rate, mu , sdev_i, sdev_c, expval) {
 
-  colnames(dt) <- c("EventID", "Rate", "MeanLoss","StdevI", "StDevC","EdtpVal" , "Description", "Peril","SourceID" )
-
-  as.numeric(dt$Rate)->dt$Rate
-  as.numeric( dt$MeanLoss)->dt$MeanLoss
-  as.numeric(dt$StdevI)->dt$StdevI
-  as.numeric(dt$StDevC)->dt$StDevC
-  as.numeric(dt$ExpVal)->dt$ExpVal
-
-  dt$MDr <- dt$MeanLoss/dt$ExpVal
-  dt$Stdev <- dt$StdevI + dt$StDevC
-  dt$COV <- (dt$Stdev)/dt$MeanLoss
-  dt$alpha <-((1-dt$MDr)/(dt$COV^2)) - dt$MDr
+  dt[ , mdr := get(mu)/get(expval)]
+  dt[, sdev := get(sdev_i) + get(sdev_c)]
+  dt[, cov :=  sdev /get(mu) ]
+  dt[, alpha := ( (1- mdr)/ (cov^2) - mdr) ]
 
   dt$alpha[!is.finite(dt$alpha)] <- 0
-  dt$beta <- (dt$alpha*(1-dt$MDr))/dt$MDr
 
-  lda <- sum(dt$Rate)
-  dt$random_num <- dt$Rate/lda
+  dt[ , beta := (alpha * (1- mdr))/mdr  ]
 
-  dt
+  lda <- sum(dt[, get(ann_rate)] )
+
+  dt[ , random_num := get(ann_rate)/ lda]
+
+
+  data.table::data.table(dt)
 
 }
 
 
-#' Create a Year loss table in tidy format
+
+
+#' TCreate a YLT from ELT
 #'
-#' @param x a data.table of elt  with parameters
-#' @param sims number of years to simulate
+#' @param dt
+#' @param sims
+#' @param ann_rate
+#' @param event_id
+#' @param expval
+#' @param mu
 #'
-#' @return YLT
+#' @return
 #' @export
 
-create_ylt <- function (x,  sims) {
+create_ylt <- function(dt, sims, ann_rate, event_id, expval, mu){
+  set.seed(1)
+  yr<-1:sims
+  lda <-  sum(dt[, get(ann_rate)])
+  sim_events <- rpois(n = sims, lambda = lda)
 
-  Yr<-1:sims
-  lda_Port <- sum(x$Rate)
-  x_Port <- rpois(n = sims, lambda = lda_Port)
+  row_port <- sample(x = 1:length(dt[,get(event_id)]), size = sum(sim_events), replace = TRUE, prob = dt$random_num)
 
-  row_Port <- sample(x = 1:length(x$EventID), size = sum(x_Port), replace = TRUE, prob = x$random_num)
+  event_loss_port<- ifelse( dt$alpha[row_port]>0, rbeta(length(row_port), dt$alpha[row_port], dt$beta[row_port])*dt[,get(expval)][row_port],dt[,get(mu)][row_port])
 
-  event_loss_Port<- ifelse( x$alpha[row_Port]>0, rbeta(length(row_Port), x$alpha[row_Port], x$beta[row_Port])*x$ExpVal[row_Port],x$MeanLoss[row_Port])
+  lossNo_port <-  rep(yr, times= sim_events)
 
-  rep(Yr, times= x_Port)->lossNo_Port
+  event_loss_port <- data.table(EventID = dt[,get(event_id)][row_port], Loss= event_loss_port, Year=lossNo_port)
 
-  event_loss_Port<- data.table(EventID = x$EventID[row_Port], Loss= event_loss_Port, Year=lossNo_Port, Peril=x$Peril[row_Port])
+  zero_port <- yr[!(yr%in% lossNo_port)]
 
-  zero_Port<- Yr[!(Yr%in% lossNo_Port)]
+  try(zero_yrs_port <- data.table(Loss=0, Year=zero_port, Event="None"), silent = TRUE)
 
-  try(ZeroYrs_Port<-data.table(Loss=0, Year=zero_Port, Peril="No Loss", Event="None"), silent = T)
+  EventDT_Port <- data.table(Year=lossNo_port,  Loss=event_loss_port$Loss, Event= dt[,get(event_id)][row_port])
+  try(EventDT_Port <- rbind(EventDT_Port, zero_yrs_port), silent=TRUE)
 
-  EventDT_Port<-data.table(Year=lossNo_Port,  Loss=event_loss_Port$Loss, Peril= x$Peril[row_Port], Event=x$EventID[row_Port])
-  try(EventDT_Port<-rbind(EventDT_Port, ZeroYrs_Port), silent=T)
-  EventDT_Port[order(Year)]->EventDT_Port
 
-  EventDT_Port
+  EventDT_Port <- EventDT_Port[order(Year)]
+
+  EventDT_Port[]
+
 
 }
-
-
 
 
 
@@ -98,26 +107,26 @@ annual_loss <- function(x) {
 }
 
 
-
-
-
-
-#' Calculate Occurrence Exceedance Probability
+#' OEP Curve
 #'
-#' @param x a annual loss table
-#' @param y a years
-#' @param z the loss amount
+#' @param dt aggregate annual YLT
+#' @param y vector of year
+#' @param z vector of loss amount
+#' @param rp return period default points=  c(10000,5000,1000,500,250,200,100,50, 25,10,5 , 2)
 #'
-#' @return ep curve
+#' @return
 #' @export
 
-create_ep_curve <-function(x, y, z){
-  EP<- c(10000,5000,1000,500,250,200,100,50, 25,10,5 , 2)
-  Max_Port <- x[,.(y,z)][, max(z) , by=y]
-  OEP_Port<- sapply(1 - 1/EP, function(x) quantile(Max_Port$V1, x))
-  OEP_Port
+create_ep_curve <-function(dt, y, z, rp =  c(10000,5000,1000,500,250,200,100,50, 25,10,5 , 2)){
+
+  Max_Port <- dt[, max(get(z)) , by=get(y)]
+
+  data.table(return_period=rp, OEP=sapply(1 - 1/rp, function(x) quantile(Max_Port$V1, x)) )
 
 }
+
+
+#' @examples
 
 
 

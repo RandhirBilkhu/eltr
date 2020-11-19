@@ -2,16 +2,26 @@
 % Please edit documentation in R/cat_functions.R
 \name{create_elt}
 \alias{create_elt}
-\title{Create an Event Loss Table with parameters for simulation}
+\title{Create parameters for ELT simulation}
 \usage{
-create_elt(dt)
+create_elt(dt, ann_rate, mu, sdev_i, sdev_c, expval)
 }
 \arguments{
-\item{dt}{a data.table}
+\item{dt}{an ELT (Event Loss Table)}
+
+\item{ann_rate}{a vector of annual rates for each event}
+
+\item{mu}{a vector of mean event loss}
+
+\item{sdev_i}{a vector of independent standard deviations}
+
+\item{sdev_c}{a vector of correlated standard deviations}
+
+\item{expval}{the total values exposed in each event}
 }
 \value{
-ELT
+a data.table object with mean damage ratio, total standard deviation and alpha/beta parameters
 }
 \description{
-Create an Event Loss Table with parameters for simulation
+Create parameters for ELT simulation
 }
