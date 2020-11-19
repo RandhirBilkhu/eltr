@@ -1,61 +1,61 @@
-#' Title
+#' Limited event loss to the layer
 #'
-#' @param x
-#' @param Excess
-#' @param Limit
+#' @param x event loss mean
+#' @param Excess treaty retention
+#' @param Limit treaty limit
 #'
-#' @return
+#' @return limited loss to the layer
 #' @export
-#'
-#' @examples
-Layer <- function(x, Excess, Limit){
+
+layer_loss <- function(x, Excess, Limit){
   pmin(pmax(x - Excess, 0), Limit)
 }
 
-#' Title
+
+
+#' Create an Event Loss Table with parameters for simulation
 #'
-#' @param x
+#' @param dt a data.table
 #'
-#' @return
+#' @return ELT
 #' @export
-#'
-#' @examples
-ELT_ANALYSIS <- function(x) {
 
-  colnames(x) <- c("EventID", "Rate", "MeanLoss","StdevI", "StDevC","ExpVal" , "Description", "Peril","SourceID" )
+create_elt <- function(dt) {
 
-  as.numeric(x$Rate)->x$Rate
-  as.numeric( x$MeanLoss)->x$MeanLoss
-  as.numeric(x$StdevI)->x$StdevI
-  as.numeric(x$StDevC)->x$StDevC
-  as.numeric(x$ExpVal)->x$ExpVal
+  colnames(dt) <- c("EventID", "Rate", "MeanLoss","StdevI", "StDevC","EdtpVal" , "Description", "Peril","SourceID" )
 
-  x$MDr <- x$MeanLoss/x$ExpVal
-  x$Stdev <- x$StdevI + x$StDevC
-  x$COV <- (x$Stdev)/x$MeanLoss
-  x$alpha <-((1-x$MDr)/(x$COV^2)) - x$MDr
+  as.numeric(dt$Rate)->dt$Rate
+  as.numeric( dt$MeanLoss)->dt$MeanLoss
+  as.numeric(dt$StdevI)->dt$StdevI
+  as.numeric(dt$StDevC)->dt$StDevC
+  as.numeric(dt$ExpVal)->dt$ExpVal
 
-  x$alpha[!is.finite(x$alpha)] <- 0
-  x$beta <- (x$alpha*(1-x$MDr))/x$MDr
+  dt$MDr <- dt$MeanLoss/dt$ExpVal
+  dt$Stdev <- dt$StdevI + dt$StDevC
+  dt$COV <- (dt$Stdev)/dt$MeanLoss
+  dt$alpha <-((1-dt$MDr)/(dt$COV^2)) - dt$MDr
 
-  lda <- sum(x$Rate)
-  x$random_num <- x$Rate/lda
+  dt$alpha[!is.finite(dt$alpha)] <- 0
+  dt$beta <- (dt$alpha*(1-dt$MDr))/dt$MDr
 
-  x
+  lda <- sum(dt$Rate)
+  dt$random_num <- dt$Rate/lda
+
+  dt
 
 }
 
 
-#' Title
+#' Create a Year loss table in tidy format
 #'
-#' @param x
-#' @param sims
+#' @param x a data.table of elt  with parameters
+#' @param sims number of years to simulate
 #'
-#' @return
+#' @return YLT
 #' @export
-#'
-#' @examples
-YLT <- function (x,  sims) {
+
+create_ylt <- function (x,  sims) {
+
   Yr<-1:sims
   lda_Port <- sum(x$Rate)
   x_Port <- rpois(n = sims, lambda = lda_Port)
@@ -82,39 +82,36 @@ YLT <- function (x,  sims) {
 
 
 
-#' Title
-#'
-#' @param Limit
-#' @param Rate
-#' @param RI
-#' @param Reinst
-#'
-#' @return
-#' @export
-#'
-#' @examples
-RIP <- function( Limit, Rate, RI, Reinst){
 
-  Prem <- Limit* Rate * RI *(Reinst>0)
-  Prem
+
+#' Aggregate annual loss by year
+#'
+#' @param x a YLT
+#'
+#' @return a data.table with rows = sims
+#' @export
+
+annual_loss <- function(x) {
+
+  x[, lapply(.SD , sum, na.rm=T), by= x$Year, .SDcols = c("Loss", "Loss_LAE", "Loss_NetFHCF", "Layer1", "Layer2", "Layer3", "Layer4", "Layer5",  "Layer6")]
 
 }
 
 
-#' Title
-#'
-#' @param x
-#'
-#' @return
-#' @export
-#'
-#' @examples
-Annual_loss <- function(x) {
 
-  AnnLoss <- x[, lapply(.SD , sum, na.rm=T), by= x$Year, .SDcols = c("Loss", "Loss_LAE", "Loss_NetFHCF", "Layer1", "Layer2", "Layer3", "Layer4", "Layer5",  "Layer6")]
-  AnnLoss
-}
-EP_Curve <-function(x, y, z){
+
+
+
+#' Calculate Occurrence Exceedance Probability
+#'
+#' @param x a annual loss table
+#' @param y a years
+#' @param z the loss amount
+#'
+#' @return ep curve
+#' @export
+
+create_ep_curve <-function(x, y, z){
   EP<- c(10000,5000,1000,500,250,200,100,50, 25,10,5 , 2)
   Max_Port <- x[,.(y,z)][, max(z) , by=y]
   OEP_Port<- sapply(1 - 1/EP, function(x) quantile(Max_Port$V1, x))
@@ -122,18 +119,9 @@ EP_Curve <-function(x, y, z){
 
 }
 
-#' Title
-#'
-#' @param x
-#' @param y
-#'
-#' @return
-#' @export
-#'
-#' @examples
-EL<- function( x, y){
 
-  EL<- x[, lapply(.SD, mean, na.rm=T), by=x$Year , .SDCols = y]
-  EL
-}
-#################################################
+
+
+
+
+
