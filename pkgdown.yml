@@ -2,6 +2,8 @@ pandoc: 2.7.3
 pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
+  Terminology: Terminology.html
+  Worked-Example: Worked-Example.html
   introduction: introduction.html
-last_built: 2020-11-20T15:36Z
+last_built: 2020-11-20T18:41Z
 
