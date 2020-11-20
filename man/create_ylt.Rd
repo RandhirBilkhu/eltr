@@ -2,16 +2,26 @@
 % Please edit documentation in R/cat_functions.R
 \name{create_ylt}
 \alias{create_ylt}
-\title{TCreate a YLT from ELT}
+\title{Create a YLT from ELT via monte carlo simulation}
 \usage{
 create_ylt(dt, sims, ann_rate, event_id, expval, mu)
 }
 \arguments{
-\item{mu}{}
+\item{dt}{a data.table with modified ELT}
+
+\item{sims}{number of years to simulate}
+
+\item{ann_rate}{event frequency}
+
+\item{event_id}{unique event identifier}
+
+\item{expval}{total amount exposed}
+
+\item{mu}{mean event loss}
 }
 \value{
-
+a tidy data.table with Loss, Year and ID. Where a year simulated with zero events will show as "none"
 }
 \description{
-TCreate a YLT from ELT
+Create a YLT from ELT via monte carlo simulation
 }

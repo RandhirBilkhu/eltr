@@ -1,0 +1,65 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# catr
+
+<!-- badges: start -->
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![R build status](https://github.com/RandhirBilkhu/catr/workflows/R-CMD-check/badge.svg)](https://github.com/RandhirBilkhu/catr/actions)
+[![Codecov test coverage](https://codecov.io/gh/RandhirBilkhu/catr/branch/master/graph/badge.svg)](https://codecov.io/gh/RandhirBilkhu/catr?branch=master)
+<!-- badges: end -->
+
+The goal of catr is to help analysis of catastrophe model outputs.
+
+## Installation
+
+You can install the development version from [GitHub](https://github.com/RandhirBilkhu/catr) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("RandhirBilkhu/catr")
+```
+## Example
+
+This is a basic example which shows you how to solve a common problem:
+
+```{r example}
+library(catr)
+## load a rawelt file
+
+raw_elt <- catr::example_elt
+
+raw_elt
+
+## paramterise elt
+
+elt <- create_elt(raw_elt, ann_rate="rate", mu="mean", sdev_i = "sdevi" , sdev_c = "sdevc", expval = "exp")
+
+## generate a YLT 
+
+ylt <- create_ylt(elt, sims=10 ,ann_rate = "rate" , event_id = "id", expval = "exp" , mu ="mean")
+
+ylt
+
+### calculate AAL and OEP
+
+ann <-ylt[ ,Loss :=sum(Loss) , by=Year]
+
+ep <- create_oep_curve(ann , y= "Year", z="Loss")
+
+
+
+```
+

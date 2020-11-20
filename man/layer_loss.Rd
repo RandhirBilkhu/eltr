@@ -2,12 +2,12 @@
 % Please edit documentation in R/cat_functions.R
 \name{layer_loss}
 \alias{layer_loss}
-\title{Limited event loss to the layer}
+\title{Limited loss to the layer}
 \usage{
 layer_loss(x, Excess, Limit)
 }
 \arguments{
-\item{x}{event loss mean}
+\item{x}{event loss}
 
 \item{Excess}{treaty retention}
 
@@ -17,5 +17,10 @@ layer_loss(x, Excess, Limit)
 limited loss to the layer
 }
 \description{
-Limited event loss to the layer
+Limited loss to the layer
+}
+\examples{
+layer_loss(5,2,6)
+layer_loss(5,10,6)
+
 }

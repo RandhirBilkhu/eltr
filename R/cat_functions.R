@@ -1,12 +1,16 @@
 .datatable.aware= TRUE
 
-#' Limited event loss to the layer
+#' Limited loss to the layer
 #'
-#' @param x event loss mean
+#' @param x event loss
 #' @param Excess treaty retention
 #' @param Limit treaty limit
 #'
 #' @return limited loss to the layer
+#' @examples
+#' layer_loss(5,2,6)
+#' layer_loss(5,10,6)
+#'
 #' @export
 
 layer_loss <- function(x, Excess, Limit){
@@ -29,6 +33,9 @@ layer_loss <- function(x, Excess, Limit){
 
 create_elt <- function(dt, ann_rate, mu , sdev_i, sdev_c, expval) {
 
+  mdr <- sdev <- cov <- alpha <- beta  <- random_num <- NULL # avoid the no visible binding for global variable when running R_CMD_CHECK
+
+
   dt[ , mdr := get(mu)/get(expval)]
   dt[, sdev := get(sdev_i) + get(sdev_c)]
   dt[, cov :=  sdev /get(mu) ]
@@ -50,27 +57,29 @@ create_elt <- function(dt, ann_rate, mu , sdev_i, sdev_c, expval) {
 
 
 
-#' TCreate a YLT from ELT
+#' Create a YLT from ELT via monte carlo simulation
 #'
-#' @param dt
-#' @param sims
-#' @param ann_rate
-#' @param event_id
-#' @param expval
-#' @param mu
+#' @param dt a data.table with modified ELT
+#' @param sims number of years to simulate
+#' @param ann_rate event frequency
+#' @param event_id unique event identifier
+#' @param expval total amount exposed
+#' @param mu mean event loss
 #'
-#' @return
+#' @return a tidy data.table with Loss, Year and ID. Where a year simulated with zero events will show as "none"
 #' @export
 
 create_ylt <- function(dt, sims, ann_rate, event_id, expval, mu){
+
+  Year <- NULL # avoid the no visible binding for global variable when running R_CMD_CHECK
   set.seed(1)
   yr<-1:sims
   lda <-  sum(dt[, get(ann_rate)])
-  sim_events <- rpois(n = sims, lambda = lda)
+  sim_events <- stats::rpois(n = sims, lambda = lda)
 
   row_port <- sample(x = 1:length(dt[,get(event_id)]), size = sum(sim_events), replace = TRUE, prob = dt$random_num)
 
-  event_loss_port<- ifelse( dt$alpha[row_port]>0, rbeta(length(row_port), dt$alpha[row_port], dt$beta[row_port])*dt[,get(expval)][row_port],dt[,get(mu)][row_port])
+  event_loss_port<- ifelse( dt$alpha[row_port]>0, stats::rbeta(length(row_port), dt$alpha[row_port], dt$beta[row_port])*dt[,get(expval)][row_port],dt[,get(mu)][row_port])
 
   lossNo_port <-  rep(yr, times= sim_events)
 
@@ -92,21 +101,6 @@ create_ylt <- function(dt, sims, ann_rate, event_id, expval, mu){
 }
 
 
-
-#' Aggregate annual loss by year
-#'
-#' @param x a YLT
-#'
-#' @return a data.table with rows = sims
-#' @export
-
-annual_loss <- function(x) {
-
-  x[, lapply(.SD , sum, na.rm=T), by= x$Year, .SDcols = c("Loss", "Loss_LAE", "Loss_NetFHCF", "Layer1", "Layer2", "Layer3", "Layer4", "Layer5",  "Layer6")]
-
-}
-
-
 #' OEP Curve
 #'
 #' @param dt aggregate annual YLT
@@ -114,19 +108,19 @@ annual_loss <- function(x) {
 #' @param z vector of loss amount
 #' @param rp return period default points=  c(10000,5000,1000,500,250,200,100,50, 25,10,5 , 2)
 #'
-#' @return
+#' @return a vector of OEP at return periods as specified by the argument rp
 #' @export
 
-create_ep_curve <-function(dt, y, z, rp =  c(10000,5000,1000,500,250,200,100,50, 25,10,5 , 2)){
+create_oep_curve <- function(dt, y, z, rp =  c(10000,5000,1000,500,250,200,100,50, 25,10,5 , 2)){
+
 
   Max_Port <- dt[, max(get(z)) , by=get(y)]
 
-  data.table(return_period=rp, OEP=sapply(1 - 1/rp, function(x) quantile(Max_Port$V1, x)) )
+  data.table(return_period=rp, OEP=sapply(1 - 1/rp, function(x) stats::quantile(Max_Port$V1, x)) )
 
 }
 
 
-#' @examples
 
 
 

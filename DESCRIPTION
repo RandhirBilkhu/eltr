@@ -1,5 +1,5 @@
 Package: catr
-Title: functions to help anaylse catatstrophe model data
+Title: functions to help utilise catastrophe model event loss table outputs
 Version: 0.0.0.9000
 Authors@R: 
     person(given = "Randhir",
@@ -7,9 +7,8 @@ Authors@R:
            role = c("aut", "cre"),
            email = "first.last@example.com",
            comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: this package provides a series of functions to help use and analyse catastrophe model output
-License: `use_mit_license()`, `use_gpl3_license()` or friends to
-    pick a license
+Description: this package provides a series of functions to help use and analyse catastrophe model output.
+License: LGPL (>= 2.1)
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
@@ -24,3 +23,5 @@ Imports:
 VignetteBuilder: knitr
 Depends: 
     R (>= 2.10)
+URL: https://github.com/RandhirBilkhu/catr
+BugReports: https://github.com/RandhirBilkhu/catr/issues
