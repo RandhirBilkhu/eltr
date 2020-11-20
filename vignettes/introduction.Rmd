@@ -1,5 +1,5 @@
 ---
-title: "introduction"
+title: "Motivation"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{introduction}
@@ -14,6 +14,22 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
-library(catr)
-```
+### What are Catastrophe models?
+
+Catastrophe models are computer programs which are used to estimate the losses that could be sustained due to a catastrophic event. These can be natural (e.g. hurricanes or earthquakes) or man made such as cyber data breaches, or due to warfare. 
+
+Commercial vendors such as [RMS](https://www.rms.com/) and [AIR](https://www.air-worldwide.com/) provide applications which are widely used in the re-insurance industry
+
+### What are Catastrophe models used for in the reinsurance industry?
+
+It is important for insurers providing cover for events such as hurricanes to understand and monitor the level of risk they are taking. Actuaries typically use the results of commerical catastrophe models to help answer key questions such as:
+
+- the level of capital required to be set aside to withstand a loss due to an extreme event
+- an adequate price that should be charged .
+
+This package provides helper functions to help utilise the output from RMS catastrophe models known as ELTs (Event loss Tables), which is typically used to translate the outcome to financial impact.
+
+
+
+
+

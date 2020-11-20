@@ -1,0 +1,20 @@
+---
+title: "Terminology"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Terminology}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+A brief glossary and description of some terms is provided below. Further detail can be found from a paper by the Casualty Actuarial Society [here](https://www.casact.org/pubs/forum/17spforumv2/02_Notes%20on%20Using%20Property%20Catastrophe%20Model%20Results.pdf)
+
+
+TODO
