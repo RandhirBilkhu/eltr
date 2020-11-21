@@ -1,6 +1,6 @@
 Package: catr
-Title: functions to help utilise catastrophe model event loss table outputs
-Version: 0.0.0.9000
+Title: utilise catastrophe model event loss table outputs
+Version: 0.0.1
 Authors@R: 
     person(given = "Randhir",
            family = "Bilkhu",
