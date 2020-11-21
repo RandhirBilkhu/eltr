@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>News • catr</title>
+<title>Version 0.0 • catr</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,7 @@
 
 
 
-<meta property="og:title" content="News" />
+<meta property="og:title" content="Version 0.0" />
 
 
 
@@ -58,7 +58,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-news-index">
+    <div class="container template-news">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -140,16 +140,31 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Release notes</h1>
+      <h1 data-toc-skip>Changelog <small>0.0</small></h1>
+      
     </div>
-    <ul>
-    <li><a href="news-0.0.html">Version 0.0</a></li>
-    </ul>
-  </div>
-</div>
 
+    <div id="catr-001" class="section level1">
+<h1 class="page-header" data-toc-text="0.0.1">
+<a href="#catr-001" class="anchor"></a>catr 0.0.1</h1>
+<ul>
+<li><p><code>create_elt</code> transforms a raw elt into a object with beta distribution parameters for secondary uncertainty</p></li>
+<li><p><code>create_ylt</code> runs a monte carlo simulation assuming a poisson distribution for primary uncertainty</p></li>
+<li><p><code>create_oep_curve</code> returns the occurrence loss at specified return periods</p></li>
+<li><p><code>layer_loss</code> calculates limited loss to layer</p></li>
+</ul>
+</div>
+  </div>
+
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
+  </div>
+
+</div>
 
 
       <footer>
