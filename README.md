@@ -10,7 +10,7 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 [![R build
 status](https://github.com/RandhirBilkhu/catr/workflows/R-CMD-check/badge.svg)](https://github.com/RandhirBilkhu/catr/actions)
 [![Codecov test
-coverage](https://codecov.io/gh/RandhirBilkhu/catr/branch/master/graph/badge.svg)](https://codecov.io/gh/RandhirBilkhu/catr?branch=master)
+coverage](https://codecov.io/gh/RandhirBilkhu/catr/branch/main/graph/badge.svg)](https://codecov.io/gh/RandhirBilkhu/catr?branch=main)
 <!-- badges: end -->
 
 The goal of catr is to help analysis of catastrophe model outputs.
