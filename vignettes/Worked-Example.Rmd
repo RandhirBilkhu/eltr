@@ -16,6 +16,7 @@ knitr::opts_chunk$set(
 
 A worked example follows to serve as motivation for the use case.
 
+TODO
 
 ```{r }
 library(catr)
