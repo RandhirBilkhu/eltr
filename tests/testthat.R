@@ -1,4 +1,4 @@
 library(testthat)
-library(catr)
+library(eltr)
 
-test_check("catr")
+test_check("eltr")

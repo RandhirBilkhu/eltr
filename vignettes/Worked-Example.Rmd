@@ -19,7 +19,7 @@ A worked example follows to serve as motivation for the use case.
 TODO
 
 ```{r }
-library(catr)
+library(eltr)
 
 raw_elt <-example_elt
 
