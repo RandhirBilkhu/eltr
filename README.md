@@ -82,3 +82,6 @@ ann <-ylt[ ,Loss :=sum(Loss) , by=Year]
 
 ep <- create_oep_curve(ann , y= "Year", z="Loss")
 ```
+
+<a target="_blank" href="https://icons8.com/icons/set/hurricane">Hurricane
+icon</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>

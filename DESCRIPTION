@@ -1,4 +1,4 @@
-Package: catr
+Package: eltr
 Title: utilise catastrophe model event loss table outputs
 Version: 0.1.0
 Authors@R: 
