@@ -23,5 +23,5 @@ Imports:
 VignetteBuilder: knitr
 Depends: 
     R (>= 2.10)
-URL: https://randhirbilkhu.github.io/catr/, https://github.com/RandhirBilkhu/catr
-BugReports: https://github.com/RandhirBilkhu/catr/issues
+URL: https://randhirbilkhu.github.io/eltr/, https://github.com/RandhirBilkhu/eltr
+BugReports: https://github.com/RandhirBilkhu/eltr/issues

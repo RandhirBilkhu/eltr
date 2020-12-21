@@ -1,4 +1,4 @@
-# catr 0.1.0
+# eltr 0.1.0
 
 * `create_elt` transforms a raw elt into a object with beta distribution parameters for secondary uncertainty
 

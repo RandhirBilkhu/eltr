@@ -1,28 +1,28 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# catr
+# eltr
 
 <!-- badges: start -->
 
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![R build
-status](https://github.com/RandhirBilkhu/catr/workflows/R-CMD-check/badge.svg)](https://github.com/RandhirBilkhu/catr/actions)
+status](https://github.com/RandhirBilkhu/eltr/workflows/R-CMD-check/badge.svg)](https://github.com/RandhirBilkhu/eltr/actions)
 [![Codecov test
-coverage](https://codecov.io/gh/RandhirBilkhu/catr/branch/main/graph/badge.svg)](https://codecov.io/gh/RandhirBilkhu/catr?branch=main)
+coverage](https://codecov.io/gh/RandhirBilkhu/eltr/branch/main/graph/badge.svg)](https://codecov.io/gh/RandhirBilkhu/eltr?branch=main)
 <!-- badges: end -->
 
-The goal of catr is to help analysis of catastrophe model outputs.
+The goal of eltr is to help analysis of catastrophe model outputs.
 
 ## Installation
 
 You can install the development version from
-[GitHub](https://github.com/RandhirBilkhu/catr) with:
+[GitHub](https://github.com/RandhirBilkhu/eltr) with:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("RandhirBilkhu/catr")
+devtools::install_github("RandhirBilkhu/eltr")
 ```
 
 ## Example
@@ -30,10 +30,10 @@ devtools::install_github("RandhirBilkhu/catr")
 This is a basic example which shows you how to solve a common problem:
 
 ``` r
-library(catr)
+library(eltr)
 ## load a rawelt file
 
-raw_elt <- catr::example_elt
+raw_elt <- eltr::example_elt
 
 raw_elt
 #>     id rate  mean sdevi sdevc     exp
