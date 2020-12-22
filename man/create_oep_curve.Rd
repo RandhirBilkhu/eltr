@@ -26,3 +26,7 @@ a vector of OEP at return periods as specified by the argument rp
 \description{
 OEP Curve
 }
+\examples{
+create_oep_curve(data.table::data.table("Year" = c(1,2,3,4,5) , 
+          "Loss" =c(1 , 20 , 500 , 100 , 10000)) , y= "Year", z="Loss")
+}

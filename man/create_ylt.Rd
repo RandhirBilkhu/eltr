@@ -25,3 +25,8 @@ a tidy data.table with Loss, Year and ID. Where a year simulated with zero event
 \description{
 Create a YLT from ELT via monte carlo simulation
 }
+\examples{
+create_ylt(create_elt(eltr::example_elt, ann_rate="rate", mu="mean", 
+      sdev_i = "sdevi" , sdev_c = "sdevc", expval="exp"),
+      sims=10,ann_rate = "rate" ,event_id = "id",expval = "exp",mu ="mean")
+}

@@ -25,3 +25,8 @@ a data.table object with mean damage ratio, total standard deviation and alpha/b
 \description{
 Create parameters for ELT simulation
 }
+\examples{
+create_elt (eltr::example_elt, ann_rate="rate", mu="mean", 
+           sdev_i = "sdevi" , sdev_c = "sdevc", expval = "exp")
+
+}

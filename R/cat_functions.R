@@ -29,6 +29,10 @@ layer_loss <- function(x, Excess, Limit){
 #' @param expval the total values exposed in each event
 #'
 #' @return a data.table object with mean damage ratio, total standard deviation and alpha/beta parameters
+#' @examples
+#' create_elt (eltr::example_elt, ann_rate="rate", mu="mean", 
+#'            sdev_i = "sdevi" , sdev_c = "sdevc", expval = "exp")
+#' 
 #' @export
 
 create_elt <- function(dt, ann_rate, mu , sdev_i, sdev_c, expval) {
@@ -67,6 +71,10 @@ create_elt <- function(dt, ann_rate, mu , sdev_i, sdev_c, expval) {
 #' @param mu mean event loss
 #'
 #' @return a tidy data.table with Loss, Year and ID. Where a year simulated with zero events will show as "none"
+#' @examples 
+#' create_ylt(create_elt(eltr::example_elt, ann_rate="rate", mu="mean", 
+#'       sdev_i = "sdevi" , sdev_c = "sdevc", expval="exp"),
+#'       sims=10,ann_rate = "rate" ,event_id = "id",expval = "exp",mu ="mean")
 #' @export
 
 create_ylt <- function(dt, sims, ann_rate, event_id, expval, mu){
@@ -109,6 +117,9 @@ create_ylt <- function(dt, sims, ann_rate, event_id, expval, mu){
 #' @param rp return period default points=  c(10000,5000,1000,500,250,200,100,50, 25,10,5 , 2)
 #'
 #' @return a vector of OEP at return periods as specified by the argument rp
+#' @examples
+#' create_oep_curve(data.table::data.table("Year" = c(1,2,3,4,5) , 
+#'           "Loss" =c(1 , 20 , 500 , 100 , 10000)) , y= "Year", z="Loss")
 #' @export
 
 create_oep_curve <- function(dt, y, z, rp =  c(10000,5000,1000,500,250,200,100,50, 25,10,5 , 2)){
@@ -119,6 +130,7 @@ create_oep_curve <- function(dt, y, z, rp =  c(10000,5000,1000,500,250,200,100,5
   data.table(return_period=rp, OEP=sapply(1 - 1/rp, function(x) stats::quantile(Max_Port$V1, x)) )
 
 }
+
 
 
 
