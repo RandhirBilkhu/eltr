@@ -160,26 +160,25 @@
 <a href="#apply-monte-carlo-simulation-to-turn-elt-into-ylt" class="anchor"></a>apply Monte Carlo simulation to turn ELT into YLT</h3>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">ylt</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/create_ylt.html">create_ylt</a></span><span class="op">(</span><span class="va">elt</span>, sims<span class="op">=</span><span class="fl">10</span> ,ann_rate <span class="op">=</span> <span class="st">"rate"</span> , event_id <span class="op">=</span> <span class="st">"id"</span>, expval <span class="op">=</span> <span class="st">"exp"</span> , mu <span class="op">=</span><span class="st">"mean"</span><span class="op">)</span>
+<span class="co">#&gt; Warning in stats::rbeta(length(row_port), dt$alpha[row_port],</span>
+<span class="co">#&gt; dt$beta[row_port]): NAs produced</span>
 
 <span class="va">ylt</span>
 <span class="co">#&gt;     Year         Loss Event</span>
-<span class="co">#&gt;  1:    1 0.000000e+00  None</span>
-<span class="co">#&gt;  2:    2 2.963659e+02     5</span>
-<span class="co">#&gt;  3:    3 4.353146e-09     6</span>
-<span class="co">#&gt;  4:    4 3.086963e+02     8</span>
-<span class="co">#&gt;  5:    4 3.337206e+02     3</span>
-<span class="co">#&gt;  6:    4 1.429257e-03     2</span>
-<span class="co">#&gt;  7:    5 0.000000e+00  None</span>
-<span class="co">#&gt;  8:    6 5.525234e+00     3</span>
-<span class="co">#&gt;  9:    6 4.838321e+00     8</span>
-<span class="co">#&gt; 10:    6 8.642469e+02     7</span>
-<span class="co">#&gt; 11:    7 4.338468e+02     3</span>
-<span class="co">#&gt; 12:    7 1.357392e+03     2</span>
-<span class="co">#&gt; 13:    7 1.317510e+02     1</span>
-<span class="co">#&gt; 14:    8 1.204985e+03     5</span>
-<span class="co">#&gt; 15:    8 4.033199e+02     8</span>
-<span class="co">#&gt; 16:    9 6.361959e-02     6</span>
-<span class="co">#&gt; 17:   10 0.000000e+00  None</span></code></pre></div>
+<span class="co">#&gt;  1:    1 1.259377e-08     6</span>
+<span class="co">#&gt;  2:    1 2.605049e+02     5</span>
+<span class="co">#&gt;  3:    1 9.989790e+02     9</span>
+<span class="co">#&gt;  4:    2 2.743454e+01     1</span>
+<span class="co">#&gt;  5:    3 8.318330e+02     5</span>
+<span class="co">#&gt;  6:    3 8.075489e+02     6</span>
+<span class="co">#&gt;  7:    4 0.000000e+00  None</span>
+<span class="co">#&gt;  8:    5 9.871211e+02     1</span>
+<span class="co">#&gt;  9:    6 1.000000e+02     4</span>
+<span class="co">#&gt; 10:    6 9.445504e+02     3</span>
+<span class="co">#&gt; 11:    7 2.283267e+03     1</span>
+<span class="co">#&gt; 12:    8 6.800653e+02     5</span>
+<span class="co">#&gt; 13:    9 1.299458e+03     8</span>
+<span class="co">#&gt; 14:   10 0.000000e+00  None</span></code></pre></div>
 </div>
 <div id="apply-insurance-structure-to-calculate-limited-losses" class="section level3">
 <h3 class="hasAnchor">
@@ -192,23 +191,20 @@
 
 <span class="va">ylt</span>
 <span class="co">#&gt;     Year         Loss Event layer1_loss</span>
-<span class="co">#&gt;  1:    1 0.000000e+00  None     0.00000</span>
-<span class="co">#&gt;  2:    2 2.963659e+02     5   246.36588</span>
-<span class="co">#&gt;  3:    3 4.353146e-09     6     0.00000</span>
-<span class="co">#&gt;  4:    4 3.086963e+02     8   258.69632</span>
-<span class="co">#&gt;  5:    4 3.337206e+02     3   283.72056</span>
-<span class="co">#&gt;  6:    4 1.429257e-03     2     0.00000</span>
-<span class="co">#&gt;  7:    5 0.000000e+00  None     0.00000</span>
-<span class="co">#&gt;  8:    6 5.525234e+00     3     0.00000</span>
-<span class="co">#&gt;  9:    6 4.838321e+00     8     0.00000</span>
-<span class="co">#&gt; 10:    6 8.642469e+02     7   500.00000</span>
-<span class="co">#&gt; 11:    7 4.338468e+02     3   383.84682</span>
-<span class="co">#&gt; 12:    7 1.357392e+03     2   500.00000</span>
-<span class="co">#&gt; 13:    7 1.317510e+02     1    81.75102</span>
-<span class="co">#&gt; 14:    8 1.204985e+03     5   500.00000</span>
-<span class="co">#&gt; 15:    8 4.033199e+02     8   353.31988</span>
-<span class="co">#&gt; 16:    9 6.361959e-02     6     0.00000</span>
-<span class="co">#&gt; 17:   10 0.000000e+00  None     0.00000</span></code></pre></div>
+<span class="co">#&gt;  1:    1 1.259377e-08     6      0.0000</span>
+<span class="co">#&gt;  2:    1 2.605049e+02     5    210.5049</span>
+<span class="co">#&gt;  3:    1 9.989790e+02     9    500.0000</span>
+<span class="co">#&gt;  4:    2 2.743454e+01     1      0.0000</span>
+<span class="co">#&gt;  5:    3 8.318330e+02     5    500.0000</span>
+<span class="co">#&gt;  6:    3 8.075489e+02     6    500.0000</span>
+<span class="co">#&gt;  7:    4 0.000000e+00  None      0.0000</span>
+<span class="co">#&gt;  8:    5 9.871211e+02     1    500.0000</span>
+<span class="co">#&gt;  9:    6 1.000000e+02     4     50.0000</span>
+<span class="co">#&gt; 10:    6 9.445504e+02     3    500.0000</span>
+<span class="co">#&gt; 11:    7 2.283267e+03     1    500.0000</span>
+<span class="co">#&gt; 12:    8 6.800653e+02     5    500.0000</span>
+<span class="co">#&gt; 13:    9 1.299458e+03     8    500.0000</span>
+<span class="co">#&gt; 14:   10 0.000000e+00  None      0.0000</span></code></pre></div>
 </div>
 <div id="summarise-losses-by-year-and-calculated-average-expected-loss" class="section level3">
 <h3 class="hasAnchor">
@@ -219,23 +215,23 @@
 <span class="va">ann</span> <span class="op">&lt;-</span><span class="va">ylt</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span> <span class="va">.SD</span> , <span class="va">sum</span><span class="op">)</span>, by<span class="op">=</span><span class="va">Year</span>, .SDcols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Loss"</span>,<span class="st">"layer1_loss"</span><span class="op">)</span> <span class="op">]</span> 
 
 <span class="va">ann</span>
-<span class="co">#&gt;     Year         Loss layer1_loss</span>
-<span class="co">#&gt;  1:    1 0.000000e+00      0.0000</span>
-<span class="co">#&gt;  2:    2 2.963659e+02    246.3659</span>
-<span class="co">#&gt;  3:    3 4.353146e-09      0.0000</span>
-<span class="co">#&gt;  4:    4 6.424183e+02    542.4169</span>
-<span class="co">#&gt;  5:    5 0.000000e+00      0.0000</span>
-<span class="co">#&gt;  6:    6 8.746104e+02    500.0000</span>
-<span class="co">#&gt;  7:    7 1.922990e+03    965.5978</span>
-<span class="co">#&gt;  8:    8 1.608305e+03    853.3199</span>
-<span class="co">#&gt;  9:    9 6.361959e-02      0.0000</span>
-<span class="co">#&gt; 10:   10 0.000000e+00      0.0000</span>
+<span class="co">#&gt;     Year       Loss layer1_loss</span>
+<span class="co">#&gt;  1:    1 1259.48382    710.5049</span>
+<span class="co">#&gt;  2:    2   27.43454      0.0000</span>
+<span class="co">#&gt;  3:    3 1639.38187   1000.0000</span>
+<span class="co">#&gt;  4:    4    0.00000      0.0000</span>
+<span class="co">#&gt;  5:    5  987.12111    500.0000</span>
+<span class="co">#&gt;  6:    6 1044.55040    550.0000</span>
+<span class="co">#&gt;  7:    7 2283.26727    500.0000</span>
+<span class="co">#&gt;  8:    8  680.06525    500.0000</span>
+<span class="co">#&gt;  9:    9 1299.45770    500.0000</span>
+<span class="co">#&gt; 10:   10    0.00000      0.0000</span>
 
 <span class="va">expected_loss</span> <span class="op">&lt;-</span> <span class="va">ann</span><span class="op">[</span> , <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">.SD</span>, <span class="va">mean</span><span class="op">)</span> , .SDcols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Loss"</span>,<span class="st">"layer1_loss"</span><span class="op">)</span>      <span class="op">]</span>
 
 <span class="va">expected_loss</span>
 <span class="co">#&gt;        Loss layer1_loss</span>
-<span class="co">#&gt; 1: 534.4754      310.77</span></code></pre></div>
+<span class="co">#&gt; 1: 922.0762    426.0505</span></code></pre></div>
 </div>
 <div id="calculate-oep" class="section level3">
 <h3 class="hasAnchor">
@@ -244,19 +240,19 @@
 <code class="sourceCode R">
 <span class="va">ep</span> <span class="op">&lt;-</span><span class="fu"><a href="../reference/create_oep_curve.html">create_oep_curve</a></span><span class="op">(</span><span class="va">ann</span> , y<span class="op">=</span> <span class="st">"Year"</span>, z<span class="op">=</span><span class="st">"Loss"</span><span class="op">)</span>
 <span class="va">ep</span>
-<span class="co">#&gt;     return_period       OEP</span>
-<span class="co">#&gt;  1:         10000 1922.7070</span>
-<span class="co">#&gt;  2:          5000 1922.4238</span>
-<span class="co">#&gt;  3:          1000 1920.1580</span>
-<span class="co">#&gt;  4:           500 1917.3259</span>
-<span class="co">#&gt;  5:           250 1911.6615</span>
-<span class="co">#&gt;  6:           200 1908.8294</span>
-<span class="co">#&gt;  7:           100 1894.6686</span>
-<span class="co">#&gt;  8:            50 1866.3469</span>
-<span class="co">#&gt;  9:            25 1809.7036</span>
-<span class="co">#&gt; 10:            10 1639.7737</span>
-<span class="co">#&gt; 11:             5 1021.3494</span>
-<span class="co">#&gt; 12:             2  148.2147</span></code></pre></div>
+<span class="co">#&gt;     return_period      OEP</span>
+<span class="co">#&gt;  1:         10000 2282.688</span>
+<span class="co">#&gt;  2:          5000 2282.108</span>
+<span class="co">#&gt;  3:          1000 2277.472</span>
+<span class="co">#&gt;  4:           500 2271.677</span>
+<span class="co">#&gt;  5:           250 2260.087</span>
+<span class="co">#&gt;  6:           200 2254.292</span>
+<span class="co">#&gt;  7:           100 2225.318</span>
+<span class="co">#&gt;  8:            50 2167.368</span>
+<span class="co">#&gt;  9:            25 2051.469</span>
+<span class="co">#&gt; 10:            10 1703.770</span>
+<span class="co">#&gt; 11:             5 1367.443</span>
+<span class="co">#&gt; 12:             2 1015.836</span></code></pre></div>
 </div>
 <div id="calculate-aal-and-oep" class="section level3">
 <h3 class="hasAnchor">
