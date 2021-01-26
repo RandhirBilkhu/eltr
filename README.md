@@ -11,11 +11,20 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 status](https://github.com/RandhirBilkhu/eltr/workflows/R-CMD-check/badge.svg)](https://github.com/RandhirBilkhu/eltr/actions)
 [![Codecov test
 coverage](https://codecov.io/gh/RandhirBilkhu/eltr/branch/main/graph/badge.svg)](https://codecov.io/gh/RandhirBilkhu/eltr?branch=main)
+\[![cran version](https://www.r-pkg.org/badges/version/eltr)\]
+\[![downloads](https://cranlogs.r-pkg.org/badges/grand-total/eltr)\]
 <!-- badges: end -->
 
 The goal of eltr is to help analysis of catastrophe model outputs.
 
 ## Installation
+
+You can install the version on
+[Cran](https://cran.r-project.org/web/packages/eltr/index.html) with:
+
+``` r
+install.packages("eltr")
+```
 
 You can install the development version from
 [GitHub](https://github.com/RandhirBilkhu/eltr) with:
@@ -55,26 +64,30 @@ elt <- create_elt(raw_elt, ann_rate="rate", mu="mean", sdev_i = "sdevi" , sdev_c
 ## generate a YLT 
 
 ylt <- create_ylt(elt, sims=10 ,ann_rate = "rate" , event_id = "id", expval = "exp" , mu ="mean")
+#> Warning in stats::rbeta(length(row_port), dt$alpha[row_port],
+#> dt$beta[row_port]): NAs produced
 
 ylt
 #>     Year         Loss Event
-#>  1:    1 0.000000e+00  None
-#>  2:    2 2.963659e+02     5
-#>  3:    3 4.353146e-09     6
-#>  4:    4 3.086963e+02     8
-#>  5:    4 3.337206e+02     3
-#>  6:    4 1.429257e-03     2
+#>  1:    1 1.735283e+03     8
+#>  2:    1 2.100043e+00     8
+#>  3:    2 0.000000e+00  None
+#>  4:    3 7.703610e+01     5
+#>  5:    4 1.000000e+02     4
+#>  6:    4 3.327224e+02     8
 #>  7:    5 0.000000e+00  None
-#>  8:    6 5.525234e+00     3
-#>  9:    6 4.838321e+00     8
-#> 10:    6 8.642469e+02     7
-#> 11:    7 4.338468e+02     3
-#> 12:    7 1.357392e+03     2
-#> 13:    7 1.317510e+02     1
-#> 14:    8 1.204985e+03     5
-#> 15:    8 4.033199e+02     8
-#> 16:    9 6.361959e-02     6
-#> 17:   10 0.000000e+00  None
+#>  8:    6 4.105593e+01     6
+#>  9:    6 4.615862e-10     6
+#> 10:    7 7.318917e+02     5
+#> 11:    7 5.438283e+03     6
+#> 12:    7 1.207238e+01     1
+#> 13:    7 4.462111e+00     8
+#> 14:    7 5.294585e+02     9
+#> 15:    8 1.156734e+02     6
+#> 16:    8 7.081805e+00     3
+#> 17:    8 1.000000e+02     4
+#> 18:    9 1.188404e+03     9
+#> 19:   10 0.000000e+00  None
 
 ### calculate AAL and OEP
 

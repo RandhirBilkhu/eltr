@@ -21,12 +21,19 @@ knitr::opts_chunk$set(
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![R build status](https://github.com/RandhirBilkhu/eltr/workflows/R-CMD-check/badge.svg)](https://github.com/RandhirBilkhu/eltr/actions)
 [![Codecov test coverage](https://codecov.io/gh/RandhirBilkhu/eltr/branch/main/graph/badge.svg)](https://codecov.io/gh/RandhirBilkhu/eltr?branch=main)
+[![cran version](https://www.r-pkg.org/badges/version/eltr)]
+[![downloads](https://cranlogs.r-pkg.org/badges/grand-total/eltr)]
 <!-- badges: end -->
 
 The goal of eltr is to help analysis of catastrophe model outputs.
 
 ## Installation
 
+You can install the version on [Cran](https://cran.r-project.org/web/packages/eltr/index.html) with:
+
+```r
+install.packages("eltr")
+```
 You can install the development version from [GitHub](https://github.com/RandhirBilkhu/eltr) with:
 
 ``` r
