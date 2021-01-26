@@ -80,7 +80,6 @@ create_elt <- function(dt, ann_rate, mu , sdev_i, sdev_c, expval) {
 create_ylt <- function(dt, sims, ann_rate, event_id, expval, mu){
 
   Year <- NULL # avoid the no visible binding for global variable when running R_CMD_CHECK
-  set.seed(1)
   yr<-1:sims
   lda <-  sum(dt[, get(ann_rate)])
   sim_events <- stats::rpois(n = sims, lambda = lda)

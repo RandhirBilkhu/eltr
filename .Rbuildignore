@@ -9,3 +9,4 @@
 ^README\.Rmd$
 ^LICENSE\.md$
 ^eltr\.Rproj$
+^cran-comments\.md$

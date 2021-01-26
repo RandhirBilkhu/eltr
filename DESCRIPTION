@@ -1,13 +1,12 @@
 Package: eltr
-Title: utilise catastrophe model event loss table outputs
+Title: Utilise Catastrophe Model Event Loss Table Outputs
 Version: 0.1.0
 Authors@R: 
     person(given = "Randhir",
            family = "Bilkhu",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: this package provides a series of functions to help use and analyse catastrophe model output.
+           email = "rbilkhu7@gmail.com")
+Description: Provides a tool to run Monte Carlo simulation of catastrophe model event loss tables, using a Poisson frequency and Beta severity distribution.
 License: LGPL (>= 2.1)
 Encoding: UTF-8
 LazyData: true
